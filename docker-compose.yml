@@ -11,6 +11,8 @@ services:
         volumes:
             - ./data:/data:rw
             - ./scripts:/docker-entrypoint-initdb.d:ro
+        env_file:
+            - .env
         depends_on:
             - mongodb-community-rep1
             - mongodb-community-rep2
@@ -30,6 +32,8 @@ services:
             - mongo-network
         volumes:
             - ./data1:/data:rw
+        env_file:
+            - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27018", "--keyFile", "/opt/keyfile"]
         restart: always
 
@@ -43,6 +47,8 @@ services:
             - mongo-network
         volumes:
             - ./data2:/data:rw
+        env_file:
+            - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27019", "--keyFile", "/opt/keyfile"]
         restart: always
 
@@ -55,6 +61,8 @@ services:
             - mongo-network
         volumes:
             - ./data3:/data:rw
+        env_file:
+            - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27020", "--keyFile", "/opt/keyfile"]
         restart: always
 
