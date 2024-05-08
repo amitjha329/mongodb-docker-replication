@@ -12,4 +12,4 @@ RUN chmod 600 /opt/keyfile && chown mongodb:mongodb /opt/keyfile
 USER mongodb
 
 # Set the replica set name
-CMD ["mongod", "--replSet", "--bind_ip", "0.0.0.0", "rs0", "--keyFile", "/opt/keyfile"]
+CMD ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--keyFile", "/opt/keyfile"]
