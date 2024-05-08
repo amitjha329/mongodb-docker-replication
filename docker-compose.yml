@@ -1,0 +1,63 @@
+services:
+    mongodb-server-custom:
+        container_name: mongodb-primary
+        ports:
+            - 27017:27017
+        build:
+            context: .
+            dockerfile: Dockerfile
+        networks:
+            - mongo-network
+        volumes:
+            - ./data:/data:rw
+            - ./scripts:/docker-entrypoint-initdb.d:ro
+        depends_on:
+            - mongodb-community-rep1
+            - mongodb-community-rep2
+            - mongodb-community-rep3
+        links:
+            - mongodb-community-rep1
+            - mongodb-community-rep2
+            - mongodb-community-rep3
+        restart: always
+
+    mongodb-community-rep1:
+        container_name: mongodb-rep1
+        ports:
+            - 27018:27018
+        image: mongodb-mongodb-server-custom
+        networks:
+            - mongo-network
+        volumes:
+            - ./data1:/data:rw
+        command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27018", "--keyFile", "/opt/keyfile"]
+        restart: always
+
+    
+    mongodb-community-rep2:
+        container_name: mongodb-rep2
+        ports:
+            - 27019:27019
+        image: mongodb-mongodb-server-custom
+        networks:
+            - mongo-network
+        volumes:
+            - ./data2:/data:rw
+        command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27019", "--keyFile", "/opt/keyfile"]
+        restart: always
+
+    mongodb-community-rep3:
+        container_name: mongodb-rep3
+        ports:
+            - 27020:27020
+        image: mongodb-mongodb-server-custom
+        networks:
+            - mongo-network
+        volumes:
+            - ./data3:/data:rw
+        command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27020", "--keyFile", "/opt/keyfile"]
+        restart: always
+
+networks:
+  mongo-network:
+    driver: bridge

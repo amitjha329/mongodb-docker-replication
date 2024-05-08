@@ -1,0 +1,9 @@
+/data/*
+!/data/Readme.md
+/data1/*
+!/data1/Readme.md
+/data2/*
+!/data2/Readme.md
+/data3/*
+!/data3/Readme.md
+.env
