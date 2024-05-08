@@ -21,7 +21,7 @@ services:
             - mongodb-community-rep1
             - mongodb-community-rep2
             - mongodb-community-rep3
-        command: ["mongod", "--replSet", "rs0", "--port", "27017", "--keyFile", "/opt/keyfile"]
+        command: ["mongod", "--replSet", "rs0", "--port", "27017", "--bind_ip_all", "--keyFile", "/opt/keyfile"]
         healthcheck:
             test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'mongodb-primary:27017',priority:4},{_id:1,host:'mongodb-rep1:27018',priority:3},{_id:2,host:'mongodb-rep2:27019',priority:2},{_id:3,host:'mongodb-rep3:27020',priority:1}]}); }" | mongosh --port 27017 --quiet -u ${MONGODB_INITDB_ROOT_USERNAME} -p ${MONGODB_INITDB_ROOT_PASSWORD}
             interval: 5s
