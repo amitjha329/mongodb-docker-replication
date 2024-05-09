@@ -9,7 +9,8 @@ services:
         networks:
             - mongo-network
         volumes:
-            - ./data:/data:rw
+            - ./data/db:/data/db:rw
+            - ./data/configdb:/data/configdb:rw
             # - ./scripts:/docker-entrypoint-initdb.d:ro
         env_file:
             - .env
@@ -39,7 +40,8 @@ services:
         networks:
             - mongo-network
         volumes:
-            - ./data1:/data:rw
+            - ./data1/db:/data/db:rw
+            - ./data1/configdb:/data/configdb:rw
         env_file:
             - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27018", "--keyFile", "/opt/keyfile"]
@@ -54,7 +56,8 @@ services:
         networks:
             - mongo-network
         volumes:
-            - ./data2:/data:rw
+            - ./data2/db:/data/db:rw
+            - ./data2/configdb:/data/configdb:rw
         env_file:
             - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27019", "--keyFile", "/opt/keyfile"]
@@ -68,7 +71,8 @@ services:
         networks:
             - mongo-network
         volumes:
-            - ./data3:/data:rw
+            - ./data3/db:/data/db:rw
+            - ./data3/configdb:/data/configdb:rw
         env_file:
             - .env
         command: ["mongod", "--replSet", "rs0", "--bind_ip", "0.0.0.0", "--port", "27020", "--keyFile", "/opt/keyfile"]
