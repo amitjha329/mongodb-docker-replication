@@ -2,13 +2,14 @@ services:
     mongodb-server-custom:
         container_name: mongodb-primary
         user: root
-        ports:
-            - 27017:27017
+        # ports:
+        #     - 27017:27017
         build:
             context: .
             dockerfile: Dockerfile
-        networks:
-            - mongo-network
+        network_mode: "host"
+        # networks:
+        #     - mongo-network
         volumes:
             - ./data/db:/data/db:rw
             - ./data/configdb:/data/configdb:rw
@@ -36,11 +37,12 @@ services:
     mongodb-community-rep1:
         container_name: mongodb-rep1
         user: root
-        ports:
-            - 27018:27018
+        # ports:
+        #     - 27018:27018
         image: mongodb-mongodb-server-custom
-        networks:
-            - mongo-network
+        network_mode: "host"
+        # networks:
+        #     - mongo-network
         volumes:
             - ./data1/db:/data/db:rw
             - ./data1/configdb:/data/configdb:rw
@@ -53,11 +55,12 @@ services:
     mongodb-community-rep2:
         container_name: mongodb-rep2
         user: root
-        ports:
-            - 27019:27019
+        # ports:
+        #     - 27019:27019
         image: mongodb-mongodb-server-custom
-        networks:
-            - mongo-network
+        network_mode: "host"
+        # networks:
+        #     - mongo-network
         volumes:
             - ./data2/db:/data/db:rw
             - ./data2/configdb:/data/configdb:rw
@@ -69,11 +72,12 @@ services:
     mongodb-community-rep3:
         container_name: mongodb-rep3
         user: root
-        ports:
-            - 27020:27020
+        # ports:
+        #     - 27020:27020
         image: mongodb-mongodb-server-custom
-        networks:
-            - mongo-network
+        network_mode: "host"
+        # networks:
+        #     - mongo-network
         volumes:
             - ./data3/db:/data/db:rw
             - ./data3/configdb:/data/configdb:rw
